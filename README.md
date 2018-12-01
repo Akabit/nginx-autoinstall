@@ -1,5 +1,7 @@
 # nginx-autoinstall
 
+*This fork adds some nginx modules needed for drupal*
+
 Compile and install Nginx from source with optionnal modules.
 
 ![screenshot](https://user-images.githubusercontent.com/11699655/33800227-29565ef6-dd3c-11e7-9967-7232ecd36ee4.png)

@@ -177,7 +177,7 @@ case $OPTION in
 			echo -ne "       Downloading ngx_headers_more   [..]\r"
 			wget https://github.com/openresty/headers-more-nginx-module/archive/v${HEADERMOD_VER}.tar.gz >> /tmp/nginx-autoinstall.log 2>&1
 			tar xaf v${HEADERMOD_VER}.tar.gz
-				
+
 			if [ $? -eq 0 ]; then
 				echo -ne "       Downloading ngx_headers_more   [${CGREEN}OK${CEND}]\r"
 				echo -ne "\n"
@@ -221,7 +221,7 @@ case $OPTION in
 		if [[ "$CACHEPURGE" = 'y' ]]; then
 			cd /usr/local/src/nginx/modules
 			echo -ne "       Downloading ngx_cache_purge    [..]\r"
-			git clone https://github.com/FRiCKLE/ngx_cache_purge >> /tmp/nginx-autoinstall.log 2>&1			
+			git clone https://github.com/FRiCKLE/ngx_cache_purge >> /tmp/nginx-autoinstall.log 2>&1
 
 			if [ $? -eq 0 ]; then
 				echo -ne "       Downloading ngx_cache_purge    [${CGREEN}OK${CEND}]\r"
@@ -296,7 +296,7 @@ case $OPTION in
 			echo -ne "       Downloading OpenSSL            [..]\r"
 			wget https://www.openssl.org/source/openssl-${OPENSSL_VER}.tar.gz >> /tmp/nginx-autoinstall.log 2>&1
 			tar xaf openssl-${OPENSSL_VER}.tar.gz
-			cd openssl-${OPENSSL_VER}	
+			cd openssl-${OPENSSL_VER}
 			if [ $? -eq 0 ]; then
 				echo -ne "       Downloading OpenSSL            [${CGREEN}OK${CEND}]\r"
 				echo -ne "\n"
@@ -351,7 +351,7 @@ case $OPTION in
 		cd /usr/local/src/nginx/nginx-${NGINX_VER}
 
 		# Modules configuration
-		# Common configuration 
+		# Common configuration
 		NGINX_OPTIONS="
 		--prefix=/etc/nginx \
 		--sbin-path=/usr/sbin/nginx \
@@ -369,25 +369,27 @@ case $OPTION in
 
 
 		NGINX_MODULES="--without-http_ssi_module \
-		--without-http_scgi_module \
-		--without-http_uwsgi_module \
-		--without-http_geo_module \
-		--without-http_split_clients_module \
-		--without-http_memcached_module \
-		--without-http_empty_gif_module \
-		--without-http_browser_module \
-		--with-threads \
-		--with-file-aio \
-		--with-http_ssl_module \
-		--with-http_v2_module \
-		--with-http_mp4_module \
-		--with-http_auth_request_module \
-		--with-http_slice_module \
-		--with-http_stub_status_module \
-		--with-http_realip_module"
+    		--without-http_scgi_module \
+    		--without-http_uwsgi_module \
+    		--without-http_split_clients_module \
+    		--without-http_memcached_module \
+    		--without-http_browser_module \
+    		--with-threads \
+    		--with-file-aio \
+    		--with-http_ssl_module \
+    		--with-http_gunzip_module \
+    		--with-http_gzip_static_module \
+    		--with-http_v2_module \
+    		--with-http_mp4_module \
+    		--with-http_flv_module \
+    		--with-http_auth_request_module \
+    		--with-http_slice_module \
+    		--with-http_stub_status_module \
+    		--with-http_realip_module"
+
 
 		# Optional modules
-		# LibreSSL 
+		# LibreSSL
 		if [[ "$LIBRESSL" = 'y' ]]; then
 			NGINX_MODULES=$(echo $NGINX_MODULES; echo --with-openssl=/usr/local/src/nginx/modules/libressl-${LIBRESSL_VER})
 		fi
@@ -421,7 +423,7 @@ case $OPTION in
 		if [[ "$CACHEPURGE" = 'y' ]]; then
 			NGINX_MODULES=$(echo $NGINX_MODULES; echo "--add-module=/usr/local/src/nginx/modules/ngx_cache_purge")
 		fi
-		
+
 		# Fancy index
 		if [[ "$FANCYINDEX" = 'y' ]]; then
 			git clone --quiet https://github.com/aperezdc/ngx-fancyindex.git /usr/local/src/nginx/modules/fancyindex >> /tmp/nginx-autoinstall.log 2>&1
@@ -461,7 +463,7 @@ case $OPTION in
 		# Then we install \o/
 		echo -ne "       Installing Nginx               [..]\r"
 		make install >> /tmp/nginx-autoinstall.log 2>&1
-		
+
 		# remove debugging symbols
 		strip -s /usr/sbin/nginx
 
@@ -495,7 +497,7 @@ case $OPTION in
 			mkdir -p /var/cache/nginx
 		fi
 
-		# We add sites-* folders as some use them. /etc/nginx/conf.d/ is the vhost folder by defaultnginx 
+		# We add sites-* folders as some use them. /etc/nginx/conf.d/ is the vhost folder by defaultnginx
 		if [[ ! -d /etc/nginx/sites-available ]]; then
 			mkdir -p /etc/nginx/sites-available
 		fi
@@ -517,7 +519,7 @@ case $OPTION in
 			echo ""
 			exit 1
 		fi
-		
+
 		if [[ $(lsb_release -si) == "Debian" ]] || [[ $(lsb_release -si) == "Ubuntu" ]]
 		then
 			echo -ne "       Blocking nginx from APT        [..]\r"
