@@ -1,6 +1,7 @@
 # nginx-autoinstall
 
 *This fork adds some nginx modules needed for drupal*
+*2018-12-03: add Modsecurity option (tnx: https://www.linuxjournal.com/content/modsecurity-and-nginx)*
 
 Compile and install Nginx from source with optionnal modules.
 
