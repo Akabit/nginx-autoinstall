@@ -79,6 +79,9 @@ case $OPTION in
 		while [[ $CACHEPURGE != "y" && $CACHEPURGE != "n" ]]; do
 			read -p "       ngx_cache_purge [y/n]: " -e CACHEPURGE
 		done
+		while [[ $MODSECURITY != "y" && $MODSECURITY != "n" ]]; do
+			read -p "       ModSecurity [y/n]: " -e MODSECURITY
+		done
 		echo ""
 		echo "Choose your OpenSSL implementation :"
 		echo "   1) System's OpenSSL ($(openssl version | cut -c9-14))"
