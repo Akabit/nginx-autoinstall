@@ -581,6 +581,22 @@ case $OPTION in
 			mkdir -p /etc/nginx/sites-enabled
 		fi
 
+		# download ModSecurity config
+		mkdir /etc/nginx/modsec
+		cd /etc/nginx/modsec
+		git clone https://github.com/SpiderLabs/owasp-modsecurity-crs.git
+		mv /etc/nginx/modsec/owasp-modsecurity-crs/crs-setup.conf.example /etc/nginx/modsec/owasp-modsecurity-crs/crs-setup.conf
+		cp /opt/ModSecurity/modsecurity.conf-recommended /etc/nginx/modsec/modsecurity.conf
+		touch  /etc/nginx/modsec/main.conf
+		echo "Include /etc/nginx/modsec/modsecurity.conf" > /etc/nginx/modsec/main.conf
+		echo "Include /etc/nginx/modsec/owasp-modsecurity-crs/crs-setup.conf" >> /etc/nginx/modsec/main.conf
+		echo "Include /etc/nginx/modsec/owasp-modsecurity-crs/rules/*.conf" >> /etc/nginx/modsec/main.conf
+		echo -ne "The default server configuration is located at /etc/nginx/conf.d/default.conf."
+		echo -ne "Open this file with a text editor, and add the following two lines under the server_name line:"
+		echo -ne "modsecurity on;"
+		echo -ne "modsecurity_rules_file /etc/nginx/modsec/main.conf;"
+		echo -ne "see: https://www.linuxjournal.com/content/modsecurity-and-nginx"
+
 		# Restart Nginx
 		echo -ne "       Restarting Nginx               [..]\r"
 		systemctl restart nginx >> /tmp/nginx-autoinstall.log 2>&1
