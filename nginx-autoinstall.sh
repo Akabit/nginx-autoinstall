@@ -235,6 +235,74 @@ case $OPTION in
 			fi
 		fi
 
+		# Modsecurity
+		if [[ "$MODSECURITY" = 'y' ]]; then
+			# ModSecurity download
+			cd /opt
+			echo -ne "       Downloading ModSecurity    [..]\r"
+			git clone https://github.com/SpiderLabs/ModSecurity >> /tmp/nginx-autoinstall.log 2>&1
+			cd ModSecurity
+			git checkout v3/master >> /tmp/nginx-autoinstall.log 2>&1
+			git submodule init >> /tmp/nginx-autoinstall.log 2>&1
+			git submodule update >> /tmp/nginx-autoinstall.log 2>&1
+			if [ $? -eq 0 ]; then
+				echo -ne "       Downloading ModSecurity    [${CGREEN}OK${CEND}]\r"
+				echo -ne "\n"
+			else
+				echo -e "       Downloading ModSecurity    [${CRED}FAIL${CEND}]"
+				echo ""
+				echo "Please look at /tmp/nginx-autoinstall.log"
+				echo ""
+				exit 1
+			fi
+
+			echo -ne "       Configuring ModSecurity           [..]\r"
+			sh build.sh >> /tmp/nginx-autoinstall.log 2>&1
+			./configure >> /tmp/nginx-autoinstall.log 2>&1
+
+			if [ $? -eq 0 ]; then
+				echo -ne "       Configuring ModSecurity           [${CGREEN}OK${CEND}]\r"
+				echo -ne "\n"
+			else
+				echo -e "       Configuring ModSecurity         [${CRED}FAIL${CEND}]"
+				echo ""
+				echo "Please look at /tmp/nginx-autoinstall.log"
+				echo ""
+				exit 1
+			fi
+
+			# ModSecurity install
+			echo -ne "       Installing ModSecurity            [..]\r"
+			make >> /tmp/nginx-autoinstall.log 2>&1
+			make install >> /tmp/nginx-autoinstall.log 2>&1
+
+			if [ $? -eq 0 ]; then
+				echo -ne "       Installing ModSecurity            [${CGREEN}OK${CEND}]\r"
+				echo -ne "\n"
+			else
+				echo -e "       Installing ModSecurity            [${CRED}FAIL${CEND}]"
+				echo ""
+				echo "Please look at /tmp/nginx-autoinstall.log"
+				echo ""
+				exit 1
+			fi
+
+			# Nginx Connector
+			cd /usr/local/src/nginx/modules
+			echo -ne "       Downloading Nginx Connector    [..]\r"
+			git clone https://github.com/SpiderLabs/ModSecurity-nginx >> /tmp/nginx-autoinstall.log 2>&1
+			if [ $? -eq 0 ]; then
+				echo -ne "       Downloading Nginx Connector    [${CGREEN}OK${CEND}]\r"
+				echo -ne "\n"
+			else
+				echo -e "       Downloading Nginx Connector    [${CRED}FAIL${CEND}]"
+				echo ""
+				echo "Please look at /tmp/nginx-autoinstall.log"
+				echo ""
+				exit 1
+			fi
+		fi
+
 		# LibreSSL
 		if [[ "$LIBRESSL" = 'y' ]]; then
 			cd /usr/local/src/nginx/modules
@@ -422,6 +490,11 @@ case $OPTION in
 		# Cache Purge
 		if [[ "$CACHEPURGE" = 'y' ]]; then
 			NGINX_MODULES=$(echo $NGINX_MODULES; echo "--add-module=/usr/local/src/nginx/modules/ngx_cache_purge")
+		fi
+
+		# ModSecurity
+		if [[ "$MODSECURITY" = 'y' ]]; then
+			NGINX_MODULES=$(echo $NGINX_MODULES; echo "--add-module=/usr/local/src/nginx/modules/ModSecurity-nginx")
 		fi
 
 		# Fancy index
