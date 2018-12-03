@@ -558,14 +558,14 @@ case $OPTION in
 		# Using the official systemd script and logrotate conf from nginx.org
 		if [[ ! -e /lib/systemd/system/nginx.service ]]; then
 			cd /lib/systemd/system/
-			wget https://raw.githubusercontent.com/Angristan/nginx-autoinstall/master/conf/nginx.service >> /tmp/nginx-autoinstall.log 2>&1
+			wget https://raw.githubusercontent.com/Akabit/nginx-autoinstall/master/conf/nginx.service >> /tmp/nginx-autoinstall.log 2>&1
 			# Enable nginx start at boot
 			systemctl enable nginx >> /tmp/nginx-autoinstall.log 2>&1
 		fi
 
 		if [[ ! -e /etc/logrotate.d/nginx ]]; then
 			cd /etc/logrotate.d/
-			wget https://raw.githubusercontent.com/Angristan/nginx-autoinstall/master/conf/nginx-logrotate -O nginx >> /tmp/nginx-autoinstall.log 2>&1
+			wget https://raw.githubusercontent.com/Akabit/nginx-autoinstall/master/conf/nginx-logrotate -O nginx >> /tmp/nginx-autoinstall.log 2>&1
 		fi
 
 		# Nginx's cache directory is not created by default
@@ -701,7 +701,7 @@ case $OPTION in
 	exit
 	;;
 	3) # Update the script
-		wget https://raw.githubusercontent.com/Angristan/nginx-autoinstall/master/nginx-autoinstall.sh -O nginx-autoinstall.sh >> /tmp/nginx-autoinstall.log 2>&1
+		wget https://raw.githubusercontent.com/Akabit/nginx-autoinstall/master/nginx-autoinstall.sh -O nginx-autoinstall.sh >> /tmp/nginx-autoinstall.log 2>&1
 		chmod +x nginx-autoinstall.sh
 		echo ""
 		echo -e "${CGREEN}Update succcessful !${CEND}"
