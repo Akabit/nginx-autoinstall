@@ -25,8 +25,8 @@ Compile and install Nginx from source with optionnal modules.
 
 ### Optional modules/features
 
-* [LibreSSL from source](http://www.libressl.org/) (TLS 1.3, ChaCha20 cipher, HTTP/2 + ALPN, Curve25519, P-521)
-* [OpenSSL from source](https://www.openssl.org/) (ChaCha20 cipher, HTTP/2 + ALPN, Curve25519, P-521)
+* [LibreSSL from source](http://www.libressl.org/) (CHACHA20, ALPN for HTTP/2, X25519, P-521)
+* [OpenSSL from source](https://www.openssl.org/) (TLS 1.3, CHACHA20, ALPN for HTTP/2, X25519, P-521)
 * [ngx_pagespeed](https://github.com/pagespeed/ngx_pagespeed) (Google performance module)
 * [ngx_brotli](https://github.com/eustas/ngx_brotli) (Brotli compression algorithm)
 * [ngx_headers_more](https://github.com/openresty/headers-more-nginx-module) (Custom HTTP headers)
@@ -52,7 +52,7 @@ Just select the option when running the script :
 
 ![update](https://lut.im/Hj7wJKWwke/WZqeHT1QwwGfKXFf.png)
 
-You have te choice to delete the logs and the conf.
+You have the choice to delete the logs and the conf.
 
 ## Update Nginx
 
@@ -60,7 +60,7 @@ To update Nginx, run the script and install Nginx again. It will overwrite curre
 
 ## Update the script
 
-The update feature downloads the script from this repository, and overwrite the current `nginx-autoinstall.sh` file in the working directory. This allows you to get the latest features, bug fixes, and module versions automatically.
+The update feature downloads the script from this repository, and overwrites the current `nginx-autoinstall.sh` file in the working directory. This allows you to get the latest features, bug fixes, and module versions automatically.
 
 ![update](https://lut.im/uQSSVxAz09/zhZRuvJjZp2paLHm.png)
 
