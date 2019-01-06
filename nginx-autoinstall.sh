@@ -583,7 +583,7 @@ case $OPTION in
 
 		# download ModSecurity config
 		mkdir /etc/nginx/modsec
-		cp /opt/ModSecurity/unicode.mapping /etc/nginx/modsec/.
+		cp /opt/ModSecurity/unicode.mapping /etc/nginx/modsec/
 		cd /etc/nginx/modsec
 		git clone https://github.com/SpiderLabs/owasp-modsecurity-crs.git
 		mv /etc/nginx/modsec/owasp-modsecurity-crs/crs-setup.conf.example /etc/nginx/modsec/owasp-modsecurity-crs/crs-setup.conf
