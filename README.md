@@ -3,7 +3,7 @@
 * *This fork adds some nginx modules needed for drupal*
 * *2018-12-03: add Modsecurity option (tnx: https://www.linuxjournal.com/content/modsecurity-and-nginx)*
 
-Compile and install Nginx from source with optionnal modules.
+Compile and install Nginx from source with optional modules.
 
 ![screenshot](https://user-images.githubusercontent.com/11699655/33800227-29565ef6-dd3c-11e7-9967-7232ecd36ee4.png)
 
