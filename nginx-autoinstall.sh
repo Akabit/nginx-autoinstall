@@ -176,9 +176,9 @@ case $OPTION in
 			# ModSecurity download
 			cd /opt
 			echo -ne "       Downloading ModSecurity    [..]\r"
-			git clone https://github.com/SpiderLabs/ModSecurity >> /tmp/nginx-autoinstall.log 2>&1
+			git clone --recursive -b v3/master https://github.com/SpiderLabs/ModSecurity >> /tmp/nginx-autoinstall.log 2>&1
 			cd ModSecurity
-			git checkout v3/master >> /tmp/nginx-autoinstall.log 2>&1
+			#git checkout v3/master >> /tmp/nginx-autoinstall.log 2>&1
 			git submodule init >> /tmp/nginx-autoinstall.log 2>&1
 			git submodule update >> /tmp/nginx-autoinstall.log 2>&1
 			if [ $? -eq 0 ]; then
